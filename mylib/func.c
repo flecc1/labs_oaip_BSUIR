@@ -1,6 +1,6 @@
 #include "header_Lib.h"
 
-
+// функция для получения int от min до max
 int getValidInt(int min, int max)
 {
     int num;
@@ -19,7 +19,7 @@ int getValidInt(int min, int max)
     }
 }
 
-
+// функция для получения float от min до max
 float getValidFloat(int min, int max)
 {
     int num;
@@ -39,6 +39,7 @@ float getValidFloat(int min, int max)
     }
 }
 
+// функция для считывая динамической с перераспределением памяти строки
 void getValidString(char **str)
 {
     char c;
