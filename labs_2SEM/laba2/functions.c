@@ -57,7 +57,7 @@ char** mem_str(int count, int string_length)
     char **array = (char**)malloc(count * sizeof(char*));
     if (array == NULL)
     {
-        perror("Ошибка выделения памяти для массива указателей");
+        perror("Ошибка выделения памяти для массива строк");
         exit(EXIT_FAILURE);
     }
     for (int i = 0; i < count; i++)
@@ -296,9 +296,6 @@ void repeatDisplayFunk(int repeatDisplay, struct student *students, int studentC
     }   
 }
 
-
-#include <stdio.h>
-#include <stdlib.h>
 
 char ***mem_exam_list(int semestrCount)
 {
