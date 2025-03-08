@@ -29,23 +29,7 @@ int main()
         
         // Ввод данных студентов с экзаменационными оценками для обоих семестров
         struct student *students = inputStudentsMulti(&studentCount, examCount1, exam_list1, examCount2, exam_list2);
-        
-        // Цикл для выбора семестра для вывода информации
         repeatDisplayFunk(1, students, studentCount, exam_list1, exam_list2, examCount1, examCount2);
-        // int repeatDisplay = 1;
-        // while(repeatDisplay)
-        // {
-        //     printf(COLOR_HEADER "\nВведите номер семестра для вывода информации (1 или 2, 0 для завершения отображения): " COLOR_RESET);
-        //     int semester = getValidInt(0, 2);
-        //     if(semester == 0)
-        //         break;
-        //     if (semester == 1)
-        //         showStudentsBySemesterMulti(students, studentCount, 1, exam_list1, examCount1);
-        //     else
-        //         showStudentsBySemesterMulti(students, studentCount, 2, exam_list2, examCount2);
-        // }
-        
-        // Очистка выделенной памяти
         clearMemoryMulti(students, studentCount, exam_list1, examCount1, exam_list2, examCount2);
         
         printf(COLOR_HEADER "\nЗапустить программу заново? (1 - да, 0 - нет): " COLOR_RESET);
