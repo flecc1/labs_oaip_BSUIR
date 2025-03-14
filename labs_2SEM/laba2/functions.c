@@ -1,56 +1,5 @@
 #include "header.h"
 
-int getValidInt(int min, int max)
-{
-    int num;
-    while (1)
-    {
-        if (scanf("%d", &num) == 1 && num >= min && num <= max)
-        {
-            while(getchar() != '\n'); // очистка буфера ввода
-            return num;
-        }
-        else
-        {
-            printf(COLOR_TEXT "Ошибка! Введите число от %d до %d: " COLOR_RESET, min, max);
-            while(getchar() != '\n');
-        }
-    }
-}
-
-void readString(char *buffer, int max_length)
-{
-    if (fgets(buffer, max_length, stdin) != NULL)
-    {
-        int i = 0;
-        while (*(buffer + i) != '\0')
-        {
-            if (*(buffer + i) == '\n')
-            {
-                *(buffer + i) = '\0';
-                break;
-            }
-            i++;
-        }
-    }
-}
-
-int my_strlen(const char *s)
-{
-    int len = 0;
-    while (*(s + len) != '\0')
-        len++;
-    return len;
-}
-
-char* optimizeString(char *str)
-{
-    int len = my_strlen(str);
-    char *temp = (char*)realloc(str, (len + 1) * sizeof(char));
-    if (temp == NULL)
-        return str;
-    return temp;
-}
 
 char** mem_str(int count, int string_length)
 {
@@ -91,10 +40,10 @@ void inputExamList(char ***exam_list, int *examCount)
 
 void showExamTable(char **exam_list, int count)
 {
-    printf(COLOR_HEADER "\n%-10s%-s\n" COLOR_RESET, "Номер", "Предмет");
+    printf(COLOR_HEADER "\n%-10s%-30s\n" COLOR_RESET, "Number", "Subject");
     for (int i = 0; i < count; i++)
     {
-        printf(COLOR_TEXT "%-10d%-s\n" COLOR_RESET, i + 1, *(exam_list + i));
+        printf(COLOR_TEXT "%-10d%-30s\n" COLOR_RESET, i + 1, *(exam_list + i));
     }
 }
 
@@ -162,7 +111,7 @@ struct student* inputStudentsMulti(int *studentCount, int examCount1, char **exa
             
             float res;
             printf(COLOR_HEADER "Введите результат экзамена для предмета \"%s\" (от 0 до 10): " COLOR_RESET,
-                   *(exam_list1 + examIndex - 1));
+            *(exam_list1 + examIndex - 1));
             while (1)
             {
                 if (scanf("%f", &res) == 1 && res >= 0 && res <= 10)
@@ -224,7 +173,7 @@ struct student* inputStudentsMulti(int *studentCount, int examCount1, char **exa
 void showStudentsBySemesterMulti(struct student *students, int studentCount, int semester, char **exam_list, int examCount)
 {
     printf(COLOR_HEADER "\nСписок студентов за семестр %d:\n" COLOR_RESET, semester);
-    printf(COLOR_HEADER "%-30s%-30s%-30s%-30s%-10s\n" COLOR_RESET, "Фамилия", "Имя", "Отчество", "Предмет", "Оценка");
+    printf(COLOR_HEADER "%-30s%-30s%-30s%-30s%-10s\n" COLOR_RESET, "Lastnamae", "Name", "Surname", "Subject", "Result");
     
     for (int i = 0; i < studentCount; i++)
     {

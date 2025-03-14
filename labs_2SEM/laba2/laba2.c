@@ -5,12 +5,14 @@
 #include <ctype.h>
 
 
+
+
 int main()
 {
     int repeatProgram = 1;
     while(repeatProgram)
     {
-        char **exam_list1 = NULL;
+        char **exam_list1 = NULL; // массив который хранит список предметов для 
         int examCount1;
         char **exam_list2 = NULL;
         int examCount2;
