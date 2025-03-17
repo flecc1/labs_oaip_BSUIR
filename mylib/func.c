@@ -22,7 +22,7 @@ int getValidInt(int min, int max)
 // функция для получения float от min до max
 float getValidFloat(int min, int max)
 {
-    int num;
+    float num;
     
     while (1)
     {
@@ -97,6 +97,7 @@ void readString(char *buffer, int max_length)
             }
             i++;
         }
+        rewind(stdin);
     }
 }
 
@@ -122,26 +123,26 @@ char* optimizeString(char *str)
 }
 
 
-//фунция для выделения памяти по массив строк 
-char** mem_str(int count, int string_length)
-{
-    char **array = (char**)malloc(count * sizeof(char*));
-    if (array == NULL)
-    {
-        perror("Ошибка выделения памяти для массива строк");
-        exit(EXIT_FAILURE);
-    }
-    for (int i = 0; i < count; i++)
-    {
-        *(array + i) = (char*)malloc((string_length + 1) * sizeof(char));
-        if (*(array + i) == NULL)
-        {
-            perror("Ошибка выделения памяти для строки");
-            exit(EXIT_FAILURE);
-        }
-    }
-    return array;
-}
+// //фунция для выделения памяти по массив строк 
+// char** mem_str(int count, int string_length)
+// {
+//     char **array = (char**)malloc(count * sizeof(char*));
+//     if (array == NULL)
+//     {
+//         perror("Ошибка выделения памяти для массива строк");
+//         exit(EXIT_FAILURE);
+//     }
+//     for (int i = 0; i < count; i++)
+//     {
+//         *(array + i) = (char*)malloc((string_length + 1) * sizeof(char));
+//         if (*(array + i) == NULL)
+//         {
+//             perror("Ошибка выделения памяти для строки");
+//             exit(EXIT_FAILURE);
+//         }
+//     }
+//     return array;
+// }
 
 
 // Функция для выбора рестарта программы

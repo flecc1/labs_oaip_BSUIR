@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <ctype.h>
-#include"header_Lib.h"
+#include "../../mylib/header_Lib.h"
 
-#define N 10
+#define N 50
 #define COLOR_RESET   "\033[0m"
 #define COLOR_HEADER  "\033[1;34m"
 #define COLOR_TEXT    "\033[0;37m"

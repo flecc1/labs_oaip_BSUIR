@@ -79,12 +79,15 @@ struct student* inputStudentsMulti(int *studentCount, int examCount1, char **exa
 
         printf(COLOR_HEADER "Введите фамилию: " COLOR_RESET);
         readString((*(students + i)).stud.lastname, N);
+        (*(students + i)).stud.lastname = optimizeString((*(students + i)).stud.lastname);
 
         printf(COLOR_HEADER "Введите имя: " COLOR_RESET);
         readString((*(students + i)).stud.name, N);
+        (*(students + i)).stud.name = optimizeString((*(students + i)).stud.name);
 
         printf(COLOR_HEADER "Введите отчество: " COLOR_RESET);
         readString((*(students + i)).stud.surname, N);
+        (*(students + i)).stud.surname = optimizeString((*(students + i)).stud.surname);
 
         /* Поле sem_number не используется в новой логике – устанавливаем в 0 */
         (*(students + i)).stud.sem_number = 0;
