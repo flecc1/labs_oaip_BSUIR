@@ -41,4 +41,5 @@ void showStudentsBySemesterMulti(struct student *students, int studentCount, int
 void clearMemoryMulti(struct student *students, int studentCount, char **exam_list1, int examCount1, char **exam_list2, int examCount2);
 void repeatDisplayFunk (int repeatDisplay, struct student *students, int studentCount, char **exam_list1, char **exam_list2, int examCount1, int examCount2);
 char ***mem_exam_list(int semestrCount);
-
+void freeFilteredStudents(struct student *filteredStudents, int studentCount);
+struct student* moveSemesterData(struct student *students, int studentCount, int semester);

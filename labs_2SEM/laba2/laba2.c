@@ -4,16 +4,14 @@
 #include <limits.h>
 #include <ctype.h>
 
-
-
 int main()
 {
     int repeatProgram = 1;
     while(repeatProgram)
     {
-        char **exam_list1 = NULL; // массив который хранит список предметов для 
+        char **exam_list1 = NULL; // массив, который хранит список предметов для семестра 1
         int examCount1;
-        char **exam_list2 = NULL;
+        char **exam_list2 = NULL; // массив, который хранит список предметов для семестра 2
         int examCount2;
         
         // Ввод списка предметов для семестра 1
@@ -30,7 +28,10 @@ int main()
         
         // Ввод данных студентов с экзаменационными оценками для обоих семестров
         struct student *students = inputStudentsMulti(&studentCount, examCount1, exam_list1, examCount2, exam_list2);
+        
+        // Отображение информации о студентах по выбранному семестру (сначала сохраняется в новый массив структур)
         repeatDisplayFunk(1, students, studentCount, exam_list1, exam_list2, examCount1, examCount2);
+        
         clearMemoryMulti(students, studentCount, exam_list1, examCount1, exam_list2, examCount2);
         
         printf(COLOR_HEADER "\nЗапустить программу заново? (1 - да, 0 - нет): " COLOR_RESET);

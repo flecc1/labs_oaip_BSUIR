@@ -241,11 +241,49 @@ void repeatDisplayFunk(int repeatDisplay, struct student *students, int studentC
         int semester = getValidInt(0, 2);
         if(semester == 0)
             break;
-        if (semester == 1)
-            showStudentsBySemesterMulti(students, studentCount, 1, exam_list1, examCount1);
-        else
-            showStudentsBySemesterMulti(students, studentCount, 2, exam_list2, examCount2);
-    }   
+        
+        int examCount = (semester == 1) ? examCount1 : examCount2;
+        char **exam_list = (semester == 1) ? exam_list1 : exam_list2;
+        
+        // Копирование указателей из исходного массива в новый с помощью функции moveSemesterData
+        struct student *filteredStudents = moveSemesterData(students, studentCount, semester);
+        
+        // Выводим информацию из нового массива (данные сохранены в arr[0])
+        showStudentsBySemesterMulti(filteredStudents, studentCount, 1, exam_list, examCount);
+        
+        // Освобождаем память, выделенную для нового массива структур.
+        // Поскольку поля внутри просто указывают на те же данные, их освобождать здесь не нужно.
+        free(filteredStudents);
+    }
+}
+
+struct student* moveSemesterData(struct student *students, int studentCount, int semester) {
+    struct student *newArray = malloc(studentCount * sizeof(struct student));
+    if (newArray == NULL) {
+         perror("Ошибка выделения памяти для нового массива студентов");
+         exit(EXIT_FAILURE);
+    }
+    for (int i = 0; i < studentCount; i++) {
+         (*(newArray + i)).stud.lastname = (*(students + i)).stud.lastname;
+         (*(newArray + i)).stud.name     = (*(students + i)).stud.name;
+         (*(newArray + i)).stud.surname  = (*(students + i)).stud.surname;         
+         
+         // Присваиваем указатель на блок с данными экзаменов выбранного семестра
+         // (используем индекс semester - 1, поскольку нумерация в массиве начинается с 0)
+         (*(newArray + i)).arr[0].exam_number = (*(students + i)).arr[semester - 1].exam_number;
+    }
+    return newArray;
+}
+
+
+void freeFilteredStudents(struct student *filteredStudents, int studentCount) {
+    for (int i = 0; i < studentCount; i++) {
+        free((*(filteredStudents + i)).stud.lastname);
+        free((*(filteredStudents + i)).stud.name);
+        free((*(filteredStudents + i)).stud.surname);
+        free((*(filteredStudents + i)).arr[0].exam_number);        
+    }
+    free(filteredStudents);
 }
 
 
