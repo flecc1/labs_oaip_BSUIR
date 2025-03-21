@@ -30,9 +30,7 @@ struct student
     float bal;
 };
 
-int getValidInt(int min, int max);
-void getValidString(char **str);
-int isSameString(const char *s1, const char *s2);
+
 void showBooksTable(struct Book *books, int count);
 void findBooks(struct Book *books, int count, int searchType);
 void sortBooksByYear(struct Book *books, int count, int descending);
