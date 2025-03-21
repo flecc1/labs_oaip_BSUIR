@@ -22,6 +22,7 @@ void showBooksTable(struct Book *books, int count)
 }
 
 
+
 void findBooks(struct Book *books, int count, int searchType)
 {
     struct Book *foundBooks = (struct Book *)malloc(count * sizeof(struct Book));
@@ -204,8 +205,6 @@ void handleUserChoices(struct Book *books, int count)
         showBooksTable(books, count);
     }
 }
-
-
 
 
 void SortSelection(struct Book *books, int count)
