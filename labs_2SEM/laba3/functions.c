@@ -37,7 +37,7 @@ void showStack(struct Stack *top)
     }
     while(top)
     {
-        printf("%с ", top->data);
+        printf("%c ", top->data);
         top = top->next;
     }
     printf("\n");
