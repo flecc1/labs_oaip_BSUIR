@@ -6,6 +6,7 @@ void initQueue(struct Queue *q)
     q->head = q->end = NULL;
 }
 
+
 void push_back(struct Queue *q, int data)
 {
     struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));

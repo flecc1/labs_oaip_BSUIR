@@ -6,7 +6,7 @@ char** mem_str(int count, int string_length)
     char **array = (char**)malloc(count * sizeof(char*));
     if (array == NULL)
     {
-        perror("Ошибка выделения памяти для массива строк");
+        printf("Ошибка выделения памяти для массива строк");
         exit(EXIT_FAILURE);
     }
     for (int i = 0; i < count; i++)
@@ -14,7 +14,7 @@ char** mem_str(int count, int string_length)
         *(array + i) = (char*)malloc((string_length + 1) * sizeof(char));
         if (*(array + i) == NULL)
         {
-            perror("Ошибка выделения памяти для строки");
+            printf("Ошибка выделения памяти для строки");
             exit(EXIT_FAILURE);
         }
     }
@@ -56,7 +56,7 @@ struct student* inputStudentsMulti(int *studentCount, int examCount1, char **exa
     struct student *students = (struct student *)malloc((*studentCount) * sizeof(struct student));
     if (students == NULL)
     {
-        perror("Ошибка выделения памяти для студентов");
+        printf("Ошибка выделения памяти для студентов");
         exit(EXIT_FAILURE);
     }
     for (int i = 0; i < *studentCount; i++)
@@ -70,7 +70,7 @@ struct student* inputStudentsMulti(int *studentCount, int examCount1, char **exa
             (*(students + i)).stud.name == NULL ||
             (*(students + i)).stud.surname == NULL)
         {
-            perror("Ошибка выделения памяти для строк студента");
+            printf("Ошибка выделения памяти для строк студента");
             exit(EXIT_FAILURE);
         }
 
@@ -96,7 +96,7 @@ struct student* inputStudentsMulti(int *studentCount, int examCount1, char **exa
         (*(students + i)).arr[0].exam_number = (int *)malloc(examCount1 * sizeof(int) + examCount1 * sizeof(float));
         if ((*(students + i)).arr[0].exam_number == NULL)
         {
-            perror("Ошибка выделения памяти для данных экзаменов семестра 1");
+            printf("Ошибка выделения памяти для данных экзаменов семестра 1");
             exit(EXIT_FAILURE);
         }
         int *exam_numbers = (*(students + i)).arr[0].exam_number;
@@ -133,7 +133,7 @@ struct student* inputStudentsMulti(int *studentCount, int examCount1, char **exa
         (*(students + i)).arr[1].exam_number = (int *)malloc(examCount2 * sizeof(int) + examCount2 * sizeof(float));
         if ((*(students + i)).arr[1].exam_number == NULL)
         {
-            perror("Ошибка выделения памяти для данных экзаменов семестра 2");
+            printf("Ошибка выделения памяти для данных экзаменов семестра 2");
             exit(EXIT_FAILURE);
         }
         int *exam_numbers2 = (*(students + i)).arr[1].exam_number;
@@ -274,18 +274,6 @@ struct student* moveSemesterData(struct student *students, int studentCount, int
     }
     return newArray;
 }
-
-
-void freeFilteredStudents(struct student *filteredStudents, int studentCount) {
-    for (int i = 0; i < studentCount; i++) {
-        free((*(filteredStudents + i)).stud.lastname);
-        free((*(filteredStudents + i)).stud.name);
-        free((*(filteredStudents + i)).stud.surname);
-        free((*(filteredStudents + i)).arr[0].exam_number);        
-    }
-    free(filteredStudents);
-}
-
 
 char ***mem_exam_list(int semestrCount)
 {
