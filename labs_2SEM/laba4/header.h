@@ -13,7 +13,8 @@
 #define COLOR_DATA    "\033[0;32m"
 
 // Структура для информации о студенте
-struct stud_info {
+struct stud_info
+{
     char *lastname;
     char *name;
     char *surname;
@@ -21,25 +22,29 @@ struct stud_info {
 };
 
 // Объединение для хранения номеров экзаменов и результатов
-union exams {
+union exams
+{
     int *exam_number; // блок памяти: сначала номера экзаменов, затем результаты (float)
     float *result;
 };
 
 // Структура студента
-struct student {
+struct student
+{
     struct stud_info stud;
     union exams arr[2]; // данные для двух семестров
 };
 
 // Узел очереди студентов
-struct StudentNode {
+struct StudentNode
+{
     struct student data;
     struct StudentNode *next;
 };
 
 // Очередь студентов
-struct StudentQueue {
+struct StudentQueue
+{
     struct StudentNode *front;
     struct StudentNode *rear;
     int count;
