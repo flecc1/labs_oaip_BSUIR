@@ -7,19 +7,19 @@ int main()
     {
         do
         {
-            printf("Введите математическое выражение: ");
+            printf(YELLOW "Введите математическое выражение: " RESET);
             getValidString(&str);
             
             if (checkParentheses(str))
-                printf("Скобки расставлены правильно.\n");
+                printf(GREEN "Скобки расставлены правильно.\n" RESET);
             else
-                printf("Обнаружена ошибка в расстановке скобок.\n");
-            printf("Хотите ввести другое выражение? (1 - да, 0 - нет): ");
+                printf(RED "Обнаружена ошибка в расстановке скобок.\n" RESET);
+            printf(BLUE "Хотите ввести другое выражение? (1 - да, 0 - нет): " RESET);
         } while (getValidInt(0, 1));
         
         freeMemory(&str);
         
-        printf("Хотите запустить программу заново? (1 - да, 0 - выход): ");
+        printf(YELLOW "Хотите запустить программу заново? (1 - да, 0 - выход): " RESET);
         repeatProgram = getValidInt(0, 1);
      
     } while (repeatProgram);

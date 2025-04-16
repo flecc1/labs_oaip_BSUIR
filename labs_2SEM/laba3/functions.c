@@ -65,40 +65,44 @@ char peek2(struct Stack *top) {
 int checkParentheses(const char *str) 
 {
     struct Stack *stack = NULL;
-    for (int i = 0; *(str + i)!= '\0'; i++)
+    int hasError = 0; // Флаг, была ли ошибка
+
+    for (int i = 0; *(str + i) != '\0'; i++)
     {
         char ch = *(str + i);
-        // Если символ – открывающая скобка, помещаем её в стек вместе с позицией
+        
         if (ch == '(' || ch == '[' || ch == '{')
         {
             stack = StackInit(stack, ch, i);
         }
-        // Если символ – закрывающая скобка, проверяем соответствие с вершиной стека
         else if (ch == ')' || ch == ']' || ch == '}')
         {
             if (stack == NULL)
             {
-                printf(RED "Ошибка: закрывающая скобка '%c' на позиции %d не имеет соответствующей открывающей.\n" RESET, ch, i);
-                return 0;
+                printf(RED "Ошибка: закрывающая скобка '%c' на позиции %d не имеет соответствующей открывающей.\n" RESET, ch, i+1);
+                hasError = 1;
+                continue;
             }
             if ((ch == ')' && peek2(stack) != '(') || (ch == ']' && peek2(stack) != '[') || (ch == '}' && peek2(stack) != '{'))
             {
-                printf(RED "Ошибка: скобка '%c' на позиции %d не соответствует открывающей '%c' на позиции %d.\n" RESET, 
-                        ch, i, peek2(stack), stack->pos);
-                freeStack(stack);
-                return 0;
+                printf(RED "Ошибка: скобка '%c' на позиции %d не соответствует открывающей '%c' на позиции %d.\n" RESET, ch, i+1, peek2(stack), stack->pos);
+                hasError = 1;
+                stack = pop(stack); // Убираем некорректную скобку и идем дальше
+                continue;
             }
-            stack = pop(stack);
+            stack = pop(stack); // Всё хорошо — снимаем скобку
         }
     }
-    if (stack != NULL)
+
+    // Проверяем, остались ли незакрытые скобки
+    while (stack != NULL)
     {
         printf(RED "Ошибка: открывающая скобка '%c' на позиции %d не закрыта.\n" RESET, stack->data, stack->pos);
-        freeStack(stack);
-        return 0;
+        hasError = 1;
+        stack = pop(stack);
     }
-    freeStack(stack);
-    return 1;
+
+    return !hasError; // Вернём 1 если ошибок не было, 0 если были
 }
 
 
@@ -107,4 +111,3 @@ void freeMemory(char **expression)
     free(*expression);
     *expression = NULL;
 }
-

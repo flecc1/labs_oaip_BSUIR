@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../../mylib/header_Lib.h"
-
+#include <ctype.h>
 
 #define RED    "\033[1;31m"
 #define GREEN  "\033[1;32m"
