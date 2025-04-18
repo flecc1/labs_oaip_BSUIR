@@ -5,8 +5,8 @@
 
 struct tree
 {
-    int data;
-    tree *right, *left;
+    int item;
+    struct tree *right, *left;
 }*root;
 
 tree* List(int data);

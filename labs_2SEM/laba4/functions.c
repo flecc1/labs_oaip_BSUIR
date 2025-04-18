@@ -325,15 +325,15 @@ int removeStudent(struct StudentQueue *q, char *lastname)
     {
         if (strcmp(current->data.stud.lastname, lastname) == 0)
         {
-            if (prev == NULL)
+            if (prev == NULL) //удаляем первого в очереди
             {
                 q->front = current->next;
-                if (q->rear == current)
+                if (q->rear == current) //Убираем текущий узел из начала очереди
                     q->rear = NULL;
-            } else
+            } else                          //удаляем из середины или конца
             {
-                prev->next = current->next;
-                if (q->rear == current)
+                prev->next = current->next;     //Пропускаем current, «перешивая» список — prev теперь указывает на следующий за current
+                if (q->rear == current)         //Если удаляемый узел — последний (rear), то rear нужно сдвинуть назад на prev
                     q->rear = prev;
             }
             free(current->data.stud.lastname);
