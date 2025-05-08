@@ -125,7 +125,7 @@ struct tree *delnode(struct tree *root, int key)
         {
             struct tree *vrem = findmin(root->left);
             root->item = vrem->item;
-            root->right = delnode(root->right, vrem->item);
+            root->left = delnode(root->left, vrem->item);
         }
     }
     return root;
