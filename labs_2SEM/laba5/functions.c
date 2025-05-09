@@ -149,18 +149,20 @@ struct tree* poisk_in_tree(struct tree *root, int target)
         return poisk_in_tree(root->right, target);
 }
 
-struct tree *build_tree(int *arr, int index, int size)
+struct tree *build_tree_from_array(int *arr, int size)
 {
-    if(index >= size || *(arr + index) == -1)
-    {
+    if (arr == NULL || size <= 0)
         return NULL;
+
+    struct tree *root = NULL;
+    for (int i = 0; i < size; i++)
+    {
+        root = add_tree(root, *(arr + i));
     }
-    
-    struct tree *root = tree_init(*(arr + index));
-    root->right = build_tree(arr, 2 * index + 1, size);
-    root->left = build_tree(arr, 2 * index + 2, size);
     return root;
 }
+
+
 
 void printfTree_rot(struct tree *root, int level)
 {
@@ -219,7 +221,7 @@ struct tree *menu(struct tree *root)
                 int size = getValidInt(0, INT32_MAX);
                 int *arr = createDynamicArray(size);
                 fillArray(arr, size);
-                root = build_tree(arr, 0, size);
+                root = build_tree_from_array(arr, size);
                 printf("\n");
                 break;
             }
@@ -348,4 +350,48 @@ void fillArray(int* arr, int size)
         printf("Элемент %d: ", i + 1);
         scanf("%d", &(*(arr + i)));
     }
+}
+
+
+
+int checkarr1(int *arr, int size)
+{
+    for(int i = 0; i < size; i ++)
+    {
+        if(*(arr + i) < *(arr + i - 1))
+            return 0;
+    }
+    return 1;
+}
+
+
+int checkarr2(int *arr, int size)
+{
+    for(int i = 0; i < size; i ++)
+    {
+        if(*(arr + i) > *(arr + i - 1))
+            return 0;
+    }
+    return 1;
+}
+
+int checksort (int *arr, int size)
+{
+    if(checkarr1(arr, size) || checkarr2(arr, size))
+        return 1;
+    else
+        return 0;
+}
+
+
+struct tree *build_sort_tree(int *arr, int start, int end)
+{
+    if(start > end)
+        return NULL;
+    
+    int mid  = (start + end) / 2;
+    struct tree *node = tree_init(*(arr + mid));
+    node->left = build_sort_tree(arr, start, mid - 1);
+    node->right = build_sort_tree(arr, mid + 1, end);
+    return node;
 }

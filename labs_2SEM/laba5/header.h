@@ -22,12 +22,10 @@ void postorder_printf(struct tree *root);
 void deltree(struct tree *root);
 struct tree *delnode(struct tree *root, int key);
 struct tree* poisk_in_tree(struct tree *root, int target);
-struct tree *build_tree(int *arr, int index, int size);
+struct tree *build_tree_from_array(int *arr, int size);
 void printfTree_rot(struct tree *root, int level);
 void printTree(struct tree *root);
 struct tree *menu(struct tree *root);
 int* createDynamicArray(int size);
 void fillArray(int* arr, int size);
 void checkPusto(struct tree *root);
-
-
