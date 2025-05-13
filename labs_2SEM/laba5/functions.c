@@ -419,6 +419,7 @@ int checkarr2(int *arr, int size)
     return 1;
 }
 
+
 int checksort (int *arr, int size)
 {
     if(checkarr1(arr, size) || checkarr2(arr, size))
