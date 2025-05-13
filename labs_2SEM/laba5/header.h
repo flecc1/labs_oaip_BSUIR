@@ -29,3 +29,5 @@ struct tree *menu(struct tree *root);
 int* createDynamicArray(int size);
 void fillArray(int* arr, int size);
 void checkPusto(struct tree *root);
+struct tree *find_min_in_tree(struct tree *root);
+struct tree *find_max_in_tree(struct tree *root);

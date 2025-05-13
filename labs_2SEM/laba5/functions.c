@@ -201,6 +201,7 @@ struct tree *menu(struct tree *root)
     while(!exit)
     {
         printf(COLOR_HEADER "\nМеню: \n" COLOR_RESET);
+        printf("0, Создать дерево и массива\n");
         printf("1. Обход дерева в прямом порядке (корень, левое поддерво, правое поддерево)\n");
         printf("2. Обход дерева в симетричном порядке (левое поддерево, корень, правое поддерево)\n");
         printf("3. Обход дерева в обратном порядке (левое поддерево, правое поддерево, корень)\n");
@@ -209,9 +210,10 @@ struct tree *menu(struct tree *root)
         printf("6. Найти элемент дерева\n");
         printf("7. Удалить дерево\n");
         printf("8. Вывод дерва на экран\n");
-        printf("0, Создать дерево и массива\n");
         printf("9. Выход\n");
-        int choice = getValidInt(0, 9);
+        printf("10. Найти минимальный элемент в дереве\n");
+        printf("11. Найти максимальный элемент в дереве\n");
+        int choice = getValidInt(0, 11);
         switch(choice)
         {
             case 0:
@@ -316,6 +318,26 @@ struct tree *menu(struct tree *root)
                 exit = 1;
                 break;
             }
+            case 10:
+            {
+                printf("\n");
+                struct tree *min_node = find_min_in_tree(root);
+                if(min_node)
+                {
+                    printf(COLOR_GREEN "Минимальный элемент: %d\n" COLOR_RESET, min_node->item);
+                }
+                break;
+            }
+            case 11:
+            {
+                printf("\n");
+                struct tree *max_node = find_max_in_tree(root);
+                if(max_node)
+                {
+                    printf(COLOR_GREEN "Максимальный элемент: %d\n" COLOR_RESET, max_node->item);
+                }
+                break;
+            }
         }
     }
     return root;
@@ -394,4 +416,34 @@ struct tree *build_sort_tree(int *arr, int start, int end)
     node->left = build_sort_tree(arr, start, mid - 1);
     node->right = build_sort_tree(arr, mid + 1, end);
     return node;
+}
+
+
+struct tree *find_min_in_tree(struct tree *root)
+{
+    if(root == NULL)
+    {
+        printf(COLOR_CYAN "Дерево пустое\n" COLOR_RESET);
+        return NULL;
+    }
+    while(root->left != NULL)
+    {
+       root = root->left;
+    }
+    return root;
+}
+
+
+struct tree *find_max_in_tree(struct tree *root)
+{
+    if(root == NULL)
+    {
+        printf(COLOR_CYAN "Дерево пустое\n" COLOR_RESET);
+        return NULL;
+    }
+    while(root->right != NULL)
+    {
+       root = root->right;
+    }
+    return root;
 }
