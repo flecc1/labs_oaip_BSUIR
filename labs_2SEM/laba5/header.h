@@ -11,6 +11,7 @@
 struct tree
 {
     int item;
+    int count;
     struct tree *right, *left;
 };
 
@@ -31,3 +32,5 @@ void fillArray(int* arr, int size);
 void checkPusto(struct tree *root);
 struct tree *find_min_in_tree(struct tree *root);
 struct tree *find_max_in_tree(struct tree *root);
+int count_Nodes(struct tree *root);
+int tree_Height(struct tree *root);

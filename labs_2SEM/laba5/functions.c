@@ -11,6 +11,7 @@ struct tree* tree_init(int data)
         exit(1);
     }
     root->item = data;
+    root->count = 1;
     root->left = root->right = NULL;
     return root;
 }
@@ -26,9 +27,13 @@ struct tree* add_tree(struct tree* node, int data)
     {
         node->left = add_tree(node->left, data);
     }
-    else
+    else if(data > node->item)
     {
         node->right = add_tree(node->right, data);
+    }
+    else 
+    {
+        node->count ++;
     }
     return node;
 }
@@ -101,6 +106,12 @@ struct tree *delnode(struct tree *root, int key)
     }
     else 
     {
+        if(root->count > 1)
+        {
+            root->count --;
+            printf(COLOR_GREEN "Счетчик уменьшен. Осталось: %d\n" COLOR_RESET, root->count);
+            return root;
+        }
         if(root->left == NULL && root->right == NULL)
         {
             printf(COLOR_GREEN "элмент %d удален\n" COLOR_RESET, key);
@@ -125,6 +136,7 @@ struct tree *delnode(struct tree *root, int key)
         {
             struct tree *vrem = findmin(root->left);
             root->item = vrem->item;
+            root->count = vrem->count;
             root->left = delnode(root->left, vrem->item);
         }
     }
@@ -175,7 +187,7 @@ void printfTree_rot(struct tree *root, int level)
     {
         printf("        ");
     }
-    printf(COLOR_YELLOW "%d\n" COLOR_RESET, root->item);
+    printf(COLOR_YELLOW "%5d(%d)\n" COLOR_RESET, root->item, root->count);
 
     printfTree_rot(root->left, level + 1);
 }
@@ -213,7 +225,8 @@ struct tree *menu(struct tree *root)
         printf("9. Выход\n");
         printf("10. Найти минимальный элемент в дереве\n");
         printf("11. Найти максимальный элемент в дереве\n");
-        int choice = getValidInt(0, 11);
+        printf("12. Вывести статистику дерева\n");
+        int choice = getValidInt(0, 12);
         switch(choice)
         {
             case 0:
@@ -324,7 +337,7 @@ struct tree *menu(struct tree *root)
                 struct tree *min_node = find_min_in_tree(root);
                 if(min_node)
                 {
-                    printf(COLOR_GREEN "Минимальный элемент: %d\n" COLOR_RESET, min_node->item);
+                    printf(COLOR_GREEN "Минимальный элемент в дереве: %d\n" COLOR_RESET, min_node->item);
                 }
                 break;
             }
@@ -334,9 +347,18 @@ struct tree *menu(struct tree *root)
                 struct tree *max_node = find_max_in_tree(root);
                 if(max_node)
                 {
-                    printf(COLOR_GREEN "Максимальный элемент: %d\n" COLOR_RESET, max_node->item);
+                    printf(COLOR_GREEN "Максимальный элемент в дереве: %d\n" COLOR_RESET, max_node->item);
                 }
                 break;
+            }
+            case 12:
+            {
+                int height = tree_Height(root);
+                int count = count_Nodes(root);
+                printf("\n");
+                printf("Статистика дерева\n");
+                printf("Максимальная высота в дереве: %d\n", height);
+                printf("Количество узлов в дереве: %d", count);
             }
         }
     }
