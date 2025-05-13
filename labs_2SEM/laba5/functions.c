@@ -187,8 +187,10 @@ void printfTree_rot(struct tree *root, int level)
     {
         printf("        ");
     }
-    printf(COLOR_YELLOW "%5d(%d)\n" COLOR_RESET, root->item, root->count);
-
+    if(root->count > 1)
+        printf(COLOR_YELLOW "%5d(%d)\n" COLOR_RESET, root->item, root->count);
+    else 
+        printf(COLOR_YELLOW "%5d\n" COLOR_RESET, root->item);
     printfTree_rot(root->left, level + 1);
 }
 
