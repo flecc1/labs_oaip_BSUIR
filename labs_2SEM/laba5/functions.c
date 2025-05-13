@@ -447,3 +447,25 @@ struct tree *find_max_in_tree(struct tree *root)
     }
     return root;
 }
+
+
+
+int count_Nodes(struct tree *root)
+{
+    if(root == NULL)
+        return 0;
+    else
+        return 1 + count_Nodes(root->left) + count_Nodes(root->right);
+}
+
+
+int tree_Height(struct tree *root)
+{
+    if(root == NULL)
+    {
+        return 0;
+    }
+    int leftHeight = tree_Height(root->left);
+    int rightHeight = tree_Height(root->right); 
+    return (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
+}
