@@ -114,8 +114,8 @@ struct tree *delnode(struct tree *root, int key)
         }
         if(root->left == NULL && root->right == NULL)
         {
-            printf(COLOR_GREEN "элмент %d удален\n" COLOR_RESET, key);
             free(root);
+            printf(COLOR_GREEN "элмент %d удален\n" COLOR_RESET, key);
             return NULL;
         }
         else if(root->left == NULL)
@@ -175,7 +175,6 @@ struct tree *build_tree_from_array(int *arr, int size)
 }
 
 
-
 void printfTree_rot(struct tree *root, int level)
 {
     if(root == NULL)
@@ -233,12 +232,18 @@ struct tree *menu(struct tree *root)
         {
             case 0:
             {
+                if(root != NULL)
+                {
+                    deltree(root);
+                    root = NULL;
+                }
                 printf("\n");
                 printf("введиет размер массива\n");
                 int size = getValidInt(0, INT32_MAX);
                 int *arr = createDynamicArray(size);
                 fillArray(arr, size);
                 root = build_tree_from_array(arr, size);
+                free(arr);
                 printf("\n");
                 break;
             }
@@ -298,9 +303,21 @@ struct tree *menu(struct tree *root)
             case 5:
             {
                 printf("\n");
-                printf("Введите номер элемента который хотите удалить от %d до %d ", INT32_MIN, INT32_MAX);
-                int key = getValidInt(INT32_MIN, INT32_MAX);
-                root = delnode(root, key);
+                if(root == NULL)
+                {
+                    printf("дерево пустое\n");
+                }
+                else
+                {
+                    printf("Введите номер элемента который хотите удалить от %d до %d ", INT32_MIN, INT32_MAX);
+                    int key = getValidInt(INT32_MIN, INT32_MAX);
+                    struct tree* old_root = root;
+                    root = delnode(root, key);
+                    if (old_root != NULL && root == NULL)
+                    {
+                        printf("Был удален последний элемент дерева теперь дерево пустое\n");
+                    }
+                }
                 break;
             }
             case 6:
@@ -315,6 +332,7 @@ struct tree *menu(struct tree *root)
             {
                 deltree(root);
                 root = NULL;
+                printf("Дерево удалено\n");
                 break;
             }
             case 8:
@@ -394,7 +412,7 @@ void fillArray(int* arr, int size)
     for (int i = 0; i < size; i++)
     {
         printf("Элемент %d: ", i + 1);
-        scanf("%d", &(*(arr + i)));
+        *(arr + i) = getValidInt(0, INT32_MAX);
     }
 }
 
